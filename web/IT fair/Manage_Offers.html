@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Offers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / <a href="Seller.html">Seller's Dashboard</a> / <a href="Manage_Offers.html">Manage Offers</a>
+        </nav>
+    </div>  
+
+    <div class="offers-container">
+        <h2>All Offers</h2>
+        <div class="offers-grid" id="offers-grid">
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/MenBag.jpg" alt="Offer Image">
+                <p>Discount 25%</p>
+            </div>
+
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/bag2.jpg" alt="Offer Image">
+                <p>Offer 88%</p>
+            </div>
+
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/TravelBag.jpg" alt="Offer Image">
+                <p>Offer 10%</p>
+            </div>
+
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/FlowerBag.jpg" alt="Offer Image">
+                <p>Discount 30%</p>
+            </div>
+
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/bag3.jpg" alt="Offer Image">
+                <p>Down 15%</p>
+            </div>
+
+            <div class="offer-card">
+                <div class="checkbox-container">
+                    <input type="checkbox" class="offer-checkbox">
+                </div>
+                <img src="Images/Bag.png" alt="Offer Image">
+                <p>KSA94 94%</p>
+            </div>
+        </div>
+        <button id="delete-btn">Delete Selected Offers</button>
+    </div>
+
+    <div class="form-container">
+        <h2 class="form-start">Add A New Offer</h2>
+        <form id="offer-form" class="form">
+            <div class="form-group">
+                <label for="product-name">Product Name</label>
+                <input type="text" id="product-name" name="textarea" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="textarea" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="textarea" required>
+            </div>
+            <div class="form-group">
+                <label for="picture">Picture</label>
+                <input type="file" id="picture" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="description">Product Description</label>
+                <textarea id="description" rows="5" cols="50" required></textarea>
+            </div>
+            <button id="submit-btn" class="form-submit-btn" type="button">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+    
+            const offersGrid = document.getElementById('offers-grid');
+            const deleteButton = document.getElementById('delete-btn');
+            const submitButton = document.getElementById('submit-btn');
+            const offerForm = document.getElementById('offer-form');
+    
+            // Default offers
+            const defaultOffers = [
+                {
+                    productName: "Men's Bag",
+                    price: "25% Discount",
+                    picture: "Images/MenBag.jpg"
+                },
+                {
+                    productName: "Bag 2",
+                    price: "88% Discount",
+                    picture: "Images/bag2.jpg"
+                },
+                {
+                    productName: "Travel Bag",
+                    price: "10% Discount",
+                    picture: "Images/TravelBag.jpg"
+                },
+                {
+                    productName: "Flower Bag",
+                    price: "30% Discount",
+                    picture: "Images/FlowerBag.jpg"
+                }
+            ];
+    
+            // Load offers from localStorage or initialize with default offers
+            let offers = JSON.parse(localStorage.getItem('offers')) || defaultOffers;
+    
+            renderOffers();
+    
+            // Render offers to the page
+            function renderOffers() {
+                offersGrid.innerHTML = ''; // Clear existing offers
+                offers.forEach((offer, index) => {
+                    const offerCard = document.createElement('div');
+                    offerCard.classList.add('offer-card');
+                    offerCard.innerHTML = `
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="offer-checkbox" data-index="${index}">
+                        </div>
+                        <img src="${offer.picture}" alt="Offer Image">
+                        <p>${offer.productName} - ${offer.price}</p>
+                    `;
+                    offersGrid.appendChild(offerCard);
+                });
+            }
+    
+            // Delete selected offers
+            deleteButton.addEventListener('click', () => {
+                const checkboxes = document.querySelectorAll('.offer-checkbox');
+                const selectedOffers = Array.from(checkboxes).filter(checkbox => checkbox.checked);
+    
+                if (selectedOffers.length === 0) {
+                    alert('Please select at least one offer');
+                    return;
+                }
+    
+                const confirmDelete = confirm('Are you sure you want to delete the selected offers?');
+                if (confirmDelete) {
+                    selectedOffers.forEach(checkbox => {
+                        const index = checkbox.dataset.index;
+                        offers.splice(index, 1);
+                    });
+    
+                    updateLocalStorage();
+                    renderOffers();
+                }
+            });
+    
+            // Add a new offer
+            submitButton.addEventListener('click', () => {
+                const productName = document.getElementById('product-name').value.trim();
+                const price = document.getElementById('price').value.trim();
+                const category = document.getElementById('category').value.trim();
+                const picture = document.getElementById('picture').files[0];
+                const description = document.getElementById('description').value.trim();
+    
+                if (!productName || !price || !category || !picture || !description) {
+                    alert('Please fill out all the fields');
+                    return;
+                }
+    
+                const newOffer = {
+                    productName,
+                    price,
+                    category,
+                    picture: URL.createObjectURL(picture),
+                    description
+                };
+    
+                offers.push(newOffer);
+                updateLocalStorage();
+                renderOffers();
+                offerForm.reset();
+                alert('New offer added successfully');
+            });
+    
+            // Update localStorage with the current state of offers
+            function updateLocalStorage() {
+                localStorage.setItem('offers', JSON.stringify(offers));
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>

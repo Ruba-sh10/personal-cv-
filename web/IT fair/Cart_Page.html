@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/png"/>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cartContainer = document.querySelector(".cart-items");
+            const totalPriceElement = document.querySelector(".total-price");
+            const removeAllBtn = document.querySelector(".remove-all-btn");
+            const payBtn = document.querySelector(".pay-btn");
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            function calculateTotal() {
+                return cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+            }
+
+            function updateCartDisplay() {
+                cartContainer.innerHTML = "";
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement("div");
+                    cartItem.className = "cart-item";
+                    cartItem.innerHTML = `
+                        <div class="product-cart-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="product-details">
+                            <p class="product-cart-name">${item.name}</p>
+                            <p class="price-cart">Price: $${item.price.toFixed(2)}</p>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrement" data-index="${index}">-</button>
+                                <input type="text" value="${item.quantity}" class="quantity-input" data-index="${index}">
+                                <button class="quantity-btn increment" data-index="${index}">+</button>
+                            </div>
+                            <button class="delete-btn" data-index="${index}">
+                                <img src="Images/Trash.png" alt="Delete" class="trash-icon">
+                            </button>
+                        </div>
+                    `;
+                    cartContainer.appendChild(cartItem);
+                });
+
+                totalPriceElement.textContent = `$${calculateTotal()}`;
+                attachEventListeners();
+            }
+
+            function attachEventListeners() {
+                document.querySelectorAll(".decrement").forEach(button =>
+                    button.addEventListener("click", function () {
+                        const index = this.dataset.index;
+                        if (cart[index].quantity > 1) {
+                            cart[index].quantity--;
+                            saveCart();
+                        }
+                    })
+                );
+
+                document.querySelectorAll(".increment").forEach(button =>
+                    button.addEventListener("click", function () {
+                        const index = this.dataset.index;
+                        cart[index].quantity++;
+                        saveCart();
+                    })
+                );
+
+                document.querySelectorAll(".delete-btn").forEach(button =>
+                    button.addEventListener("click", function () {
+                        const index = this.dataset.index;
+                        cart.splice(index, 1);
+                        saveCart();
+                    })
+                );
+
+                document.querySelectorAll(".quantity-input").forEach(input =>
+                    input.addEventListener("change", function () {
+                        const index = this.dataset.index;
+                        const newQuantity = parseInt(this.value);
+                        if (newQuantity > 0) {
+                            cart[index].quantity = newQuantity;
+                            saveCart();
+                        } else {
+                            this.value = cart[index].quantity;
+                        }
+                    })
+                );
+            }
+
+            function saveCart() {
+                localStorage.setItem("cart", JSON.stringify(cart));
+                updateCartDisplay();
+            }
+
+            removeAllBtn.addEventListener("click", function () {
+                cart = [];
+                saveCart();
+            });
+
+            payBtn.addEventListener("click", function () {
+                if (cart.length > 0) {
+                    alert(`Thank you for your purchase! Your total is $${calculateTotal()}`);
+                    localStorage.setItem("cart", JSON.stringify([]));
+                    window.location.href = "Product_Evaluation.html"; // Redirect to Ack.html
+                } else {
+                    alert("Your cart is empty!");
+                }
+            });
+
+            updateCartDisplay();
+        });
+        
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / 
+            <a href="Users_Page.html">User's Page</a> / 
+            <a href="Cart_Page.html">Cart Page</a> 
+        </nav>
+    </div>
+
+    <div class="cart-container">
+        <h2>Cart</h2>
+        <div class="cart-items"></div>
+        <div class="total-section">
+            <div class="total-text">
+                <p>To pay:</p>
+                <p class="total-price">$0.00</p>
+            </div>
+            <button class="pay-btn">Proceed to Pay</button>
+            <button class="remove-all-btn">Remove All</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"><img src="Images/VINTARA.png" alt="Logo"></a>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="Images/Tiktok.png" alt="Tiktok"></a>
+            </div>
+        </div>
+    </footer>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+    </script>
+</body>
+</html>

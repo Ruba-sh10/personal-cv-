@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintara</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <!-- Hamburger Menu Icon on the far left -->
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+
+            <!-- Navigation Links (hidden on mobile) -->
+            <nav class="header-nav"  id="navbar" >
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+
+            <!-- Logo and Cart Icon on the far right -->      
+                <div class="header-logo">
+                    <a href="index.html"  >
+                        <img src="Images/VINTARA.png" alt="Logo"/>
+                    </a>
+                </div>
+
+                <div class="header-cart">
+                    <img src="Images/mode.png" alt="Toggle Theme" class="theme-toggle" id="theme-toggle-button">
+                    <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+                </div>
+
+        </div>
+    </header>
+    
+    <div id="current-week-date"></div>
+    <hr style="margin: 10px;"> 
+    <!-- <h1 style="text-align: center; padding-top: 0.1em; padding-bottom: 0.5em;"> Vintara</h1> -->
+
+    <section class="vision-section">
+        <div class="vision-container">
+            <div class="vision-image"> 
+                <img src="Images/vision.jpg" alt="Vision Image">
+            </div>
+            <div class="vision-content">
+                <h2 class="vision-title">Vintara</h2>
+                <p>
+                    At Vintara, we celebrate the charm of vintage treasures. Our platform connects passionate sellers with buyers who appreciate unique decor, bags, jewelry, and more. By sharing timeless pieces with stories to tell, we inspire stylish, eco-friendly living while giving beautiful items a new life.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+
+    <h2 class="offers-section">Offers</h2>
+    <section class="offers-home">
+        <div class="offer-home-grid" id="offers-container">
+            <div class="offer-home">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer1.jpg" alt="Offer 1 Image">  
+                </div>
+                <p>Take advantage of free shipping on your first order, making your shopping experience even sweeter!</p>
+            </div>
+            <div class="offer-home">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer2.jpg" alt="Offer 2 Image"> 
+                </div>
+                <p> Dive into our summer sale for unbeatable deals and exciting savings on a wide range of products!</p>
+            </div>
+            <div class="offer-home">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer3.jpg" alt="Offer 3 Image"> 
+                </div>
+                <p>Grab stylish bags at a fantastic 30% discount, perfect for upgrading your summer wardrobe!</p>
+            </div>
+            <div class="offer-home hidden">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer4.jpg" alt="Offer 4 Image"> 
+                </div>
+                <p>Enjoy an incredible 40% off on all your favorite items during our summer sale!</p>
+            </div>
+            <div class="offer-home hidden">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer5.jpg" alt="Offer 5 Image"> 
+                </div>
+                <p>Don't miss our exciting giveaways, where you have the chance to win fantastic prizes with every purchase!</p>
+            </div>
+            <div class="offer-home hidden">
+                <div class="offer-home-image"> 
+                    <img src="Images/offer6.jpg" alt="Offer 6 Image"> 
+                </div>
+                <p>Check out our latest new arrivals, featuring the hottest trends and exclusive styles just for you!</p>
+            </div>
+        </div>
+        <button id="show-more" onclick="showMoreOffers()">More</button>
+    </section>
+
+    <h2 class="categories-section">Categories</h2>
+    <section class="categories">
+        <div class="category-grid">
+            <div class="category">
+                <h3>Decore</h3>
+                <div class="category-image">
+                   <a href="decor.html"> <img src="Images/category1.jpg" alt="Category 1 Image"> </a>
+                </div>
+                <p>Transform your space with our unique vintage decor pieces that add character and charm to any room.</p>
+            </div>
+    
+            <div class="category">
+                <h3>Jewelry</h3>
+                <div class="category-image">
+                    <a href="jewelery.html"> <img src="Images/category3jwel.jpg" alt="Category 2 Image"> </a>
+                </div>
+                <p>Adorn yourself with our exquisite vintage jewelry, featuring timeless designs that celebrate elegance and individuality.</p>
+            </div>
+    
+            <div class="category">
+                <h3>Bags</h3>
+                <div class="category-image">
+                    <a href="Category.html"> <img src="Images/category2bag.jpg" alt="Category 3 Image"></a>
+                </div>
+                <p>Complete your look with our stylish vintage bags, combining classic aesthetics with practicality for every occasion.</p>
+            </div>
+        </div>
+    </section>
+    
+    <h2 class="review-section-title">What Our Customers Say</h2>
+    <section class="reviews-container" id="reviews-container">
+
+        <div class="review-card" onmouseover="showDetails(this)" onmouseout="hideDetails(this)">
+            <div class="card-header">
+                <img src="Images/profile.png" alt="User Image" class="user-image">
+                <div class="title-and-rating">
+                    <p class="review-title">Diamond Ring</p>
+                    <div class="stars">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9734;</span> 
+                    </div>
+                </div>
+            </div>
+            <div class="review-body">
+                <p class="review-text"> Nice ring!</p>
+                <img src="Images/review-jwel2.jpg" alt="Product Image" class="product-home-image">
+            </div>
+            <div class="review-details hidden">
+                <p>Customer: Sarah</p>
+                <p>Product: Diamond Ring</p>
+                <p>Rating: 4/5</p>
+                <p>Feedback: Nice ring!</p>
+            </div>
+        </div>
+
+        <div class="review-card" onmouseover="showDetails(this)" onmouseout="hideDetails(this)">
+            <div class="card-header">
+                <img src="Images/profile.png" alt="User Image" class="user-image"/>
+                <div class="title-and-rating">
+                    <p class="review-title">Gold Necklace</p>
+                    <div class="stars">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9734;</span>
+                        <span class="star">&#9734;</span> 
+                    </div>
+                </div>
+            </div>
+            <div class="review-body">
+                <p class="review-text"> Loved this piece! Highly recommended! </p>
+                <img src="Images/review-jwel.jpg" alt="Product Image" class="product-home-image">
+            </div>
+            <div class="review-details hidden">
+                <p>Customer: Asma</p>
+                <p>Product: Gold Necklace</p>
+                <p>Rating: 3/5</p>
+                <p>Feedback: Loved this piece! Highly recommended!</p>
+            </div>
+        </div>
+
+        <div class="review-card" onmouseover="showDetails(this)" onmouseout="hideDetails(this)">
+            <div class="card-header">
+                <img src="Images/profile.png" alt="User Image" class="user-image">
+                <div class="title-and-rating">
+                    <p class="review-title">Pink Leather Bag</p>
+                    <div class="stars">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span> 
+                    </div>
+                </div>
+            </div>
+            <div class="review-body">
+                <p class="review-text"> Amazing bag! Loved it so much.</p>
+                <img src="Images/review-bagjpg.jpg" alt="Product Image" class="product-home-image">
+            </div>
+            <div class="review-details hidden">
+                <p>Customer: Sarah</p>
+                <p>Product: Gucci bag</p>
+                <p>Rating: 5/5</p>
+                <p>Feedback: Amazing bag! Loved it so much.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer>
+        function toggleMenu() {
+            const navbar = document.getElementById('navbar');
+            navbar.style.display = navbar.style.display === 'flex' ? 'none' : 'flex';
+        }
+        // Function to get the current week's start date (Sunday)
+        function displayCurrentWeekDate() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // Get the day of the week (0 = Sunday, 6 = Saturday)
+            
+            // Calculate the start of the current week (Sunday)
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - dayOfWeek);
+            
+            // Format the date as "Sunday 7 February"
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            const formattedDate = startOfWeek.toLocaleDateString('en-US', options);
+            
+            // Display the formatted date in the placeholder div
+            document.getElementById('current-week-date').textContent = formattedDate;
+        }
+
+        // Call the function to display the date
+        displayCurrentWeekDate();
+        
+        function showMoreOffers() {
+            const hiddenOffers = document.querySelectorAll('.offer-home.hidden');
+            hiddenOffers.forEach(offer => {
+                offer.style.display = 'block'; // Reveal hidden offers
+                offer.classList.remove('hidden'); // Remove the 'hidden' class
+            });
+            document.getElementById('show-more').style.display = 'none'; // Hide the button after clicking
+        }
+
+        function showDetails(element) {
+            const details = element.querySelector('.review-details');
+            details.style.display = 'block';
+        }
+
+        function hideDetails(element) {
+            const details = element.querySelector('.review-details');
+            details.style.display = 'none';
+        }
+        
+        // Changing the theme 
+        document.addEventListener("DOMContentLoaded", function () {
+        // Check the local storage for saved theme
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme');
+        }
+
+        // Toggle theme button functionality
+        const themeToggleButton = document.getElementById('theme-toggle-button');
+
+        themeToggleButton.addEventListener('click', function () {
+            if (document.body.classList.contains('dark-theme')) {
+                // Switch to light mode
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark mode
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    });
+    </script>
+    
+        
+</body>
+</html>

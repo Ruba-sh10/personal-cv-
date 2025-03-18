@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / <a href="Seller.html">Seller's Dashboard</a> / <a href="Add_Product.html">Add Product</a>
+        </nav>
+    </div>  
+    <main>
+        <div class="form-container">
+            <h2 class="form-start"> Add Product</h2>
+            <form class="form">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" name="textarea" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input name="textarea" id="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="bags">Bags</option>
+                        <option value="jewelry">Jewelry</option>
+                        <option value="decor">Decor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="picture">Picture</label>
+                    <input type="file" id="picture">
+                </div>
+                <div class="form-group">
+                    <label for="description">Product Description</label>
+                    <textarea name="textarea" id="description" rows="10" cols="50" required></textarea>
+                </div>
+                <button class="form-submit-btn" type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script defer> 
+       
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+        
+        document.querySelector(".form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Get form values
+        const name = document.getElementById("product-name").value;
+        const price = document.getElementById("price").value;
+        const category = document.getElementById("category").value;
+        const quantity = document.getElementById("quantity").value;
+        const description = document.getElementById("description").value;
+
+        // Get the image file
+        const pictureInput = document.getElementById("picture");
+        if (pictureInput.files.length === 0) {
+            alert("Please upload a product image.");
+            return;
+        }
+        const picture = URL.createObjectURL(pictureInput.files[0]);
+
+        // Validation
+        if (!name || !price || !category || !quantity || !description) {
+            alert("All fields are required!");
+            return;
+        }
+
+        if (/^\d/.test(name)) {
+            alert("Product name cannot start with a number.");
+            return;
+        }
+
+        if (isNaN(price) || isNaN(quantity)) {
+            alert("Price and Quantity must be valid numbers.");
+            return;
+        }
+
+        // Store the product in localStorage
+        const newProduct = {
+            name,
+            price,
+            category,
+            quantity,
+            description,
+            image: picture, // Save the image URL
+        };
+
+        const products = JSON.parse(localStorage.getItem("products")) || [];
+        products.push(newProduct);
+        
+        localStorage.setItem("products", JSON.stringify(products));
+
+        alert(`Product "${name}" has been added successfully!`);
+
+        // Clear the form
+        document.querySelector(".form").reset();
+    });
+    </script>
+
+</body>
+</html>

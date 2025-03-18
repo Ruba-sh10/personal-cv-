@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Page</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="breadcrumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / <a href="Users_Page.html">User's Page</a> / <a href="Orders_Page.html">Orders Page</a>
+        </nav>
+    </div> 
+
+    <!-- Order Section -->
+    <div class="order-container">
+        <div class="order-header">
+            <h2>Orders</h2>
+        </div>
+    
+        <div class="order-items-wrapper">
+            <div class="order-item">
+                <div class="order-image">
+                    <img src="images/imgage1.png" alt="Order Image">
+                </div>
+                <div class="order-details">
+                    <p>Order No: 12345</p>
+                    <p class="price">Total price: $500</p>
+                    <p class="date">Date: 2024-10-10 14:30</p>
+                </div>
+            </div>
+    
+            <div class="order-item">
+                <div class="order-image">
+                    <img src="images/image2.png" alt="Order Image">
+                </div>
+                <div class="order-details">
+                    <p>Order No: 12346</p>
+                    <p class="price">Total price: $759</p>
+                    <p class="date">Date: 2024-10-06 15:00</p>
+                </div>
+            </div>
+    
+            <div class="order-item">
+                <div class="order-image">
+                    <img src="images/image3.webp" alt="Order Image">
+                </div>
+                <div class="order-details">
+                    <p>Order No: 12347</p>
+                    <p class="price">Total price: $100</p>
+                    <p class="date">Date: 2024-09-19 16:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+        </script>
+</body>
+</html>

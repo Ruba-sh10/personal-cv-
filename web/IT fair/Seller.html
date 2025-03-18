@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller's Dashboard</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumbs">
+        <nav>
+            <a href="index.html">Home</a> / <a href="Seller.html">Seller's Dashboard</a>
+        </nav>
+    </div>
+
+    <section class="Seller-brand-pic">
+        <img src="Images/SellerPic.png" class="Seller-brand-pic" alt="seller brand picture">
+    </section>
+
+    <h1 class="prod-head">All Products</h1>
+    <ul class="scroll-container products">
+        <div class="product-seller-grid">
+            <!-- Products are added dynamically here  -->
+        </div>
+    </ul>
+
+    <div class="manage-section">
+        <a href="Add_Product.html" class="manage-option">
+            <img src="Images/AddProd.png" alt="Add Product">
+            <button class="manage-btn">Add Product</button>
+        </a>
+        <a href="Manage_Offers.html" class="manage-option">
+            <img src="Images/AddOffer.png" alt="Add or Delete Offer">
+            <button class="manage-btn">Manage Offers</button>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Tiktok"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer>
+                    document.addEventListener("DOMContentLoaded", function () {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const productSellerGrid = document.querySelector(".product-seller-grid");
+
+        // Products retreival from localStorage
+        const products = JSON.parse(localStorage.getItem("products")) || [];
+
+        if (products.length === 0) {
+            productSellerGrid.innerHTML = "<p>No products added yet. Visit the 'Add a New Product' page to add products.</p>";
+        } else {
+            products.forEach(product => {
+                const productCard = `
+                    <li>
+                        <div class="product-seller">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="description">${product.description}</p>
+                            <p><strong>Price:</strong> $${product.price}</p>
+                            <p><strong>Quantity:</strong> ${product.quantity}</p>
+                        </div>
+                    </li>
+                `;
+                productSellerGrid.innerHTML += productCard;
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category - vintara</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/x-icon">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const productContainer = document.querySelector(".product-grid");
+        const sortByName = document.getElementById("sortByName");
+        const sortByPrice = document.getElementById("sortByPrice");
+        const cartButtons = document.querySelectorAll(".cart-icon img");
+        const incrementButtons = document.querySelectorAll(".quantity-btn.increment");
+        const decrementButtons = document.querySelectorAll(".quantity-btn.decrement");
+        const quantityInputs = document.querySelectorAll(".quantity-input");
+
+        // Map products for manipulation
+        const products = Array.from(document.querySelectorAll(".card")).map((card, index) => {
+            return {
+                element: card,
+                name: card.querySelector(".text-title").textContent.trim(),
+                price: parseFloat(card.querySelector(".card-footer .text-title").textContent.replace(/[$,]/g, "")),
+                image: card.querySelector(".card-img img").src,
+                index: index, // Useful for quantity updates
+            };
+        });
+
+        // Render sorted products
+        function renderProducts(sortedProducts) {
+            productContainer.innerHTML = "";
+            sortedProducts.forEach(product => productContainer.appendChild(product.element));
+        }
+
+        // Sorting functionality
+        sortByName.addEventListener("change", function () {
+            if (this.value === "a-z") {
+                const sorted = [...products].sort((a, b) => a.name.localeCompare(b.name));
+                renderProducts(sorted);
+            } else if (this.value === "z-a") {
+                const sorted = [...products].sort((a, b) => b.name.localeCompare(a.name));
+                renderProducts(sorted);
+            }
+        });
+
+        sortByPrice.addEventListener("change", function () {
+            if (this.value === "low-high") {
+                const sorted = [...products].sort((a, b) => a.price - b.price);
+                renderProducts(sorted);
+            } else if (this.value === "high-low") {
+                const sorted = [...products].sort((a, b) => b.price - a.price);
+                renderProducts(sorted);
+            }
+        });
+
+        // Quantity controls
+        incrementButtons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                const quantityInput = quantityInputs[index];
+                let currentQuantity = parseInt(quantityInput.value) || 1;
+                quantityInput.value = currentQuantity + 1;
+            });
+        });
+
+        decrementButtons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                const quantityInput = quantityInputs[index];
+                let currentQuantity = parseInt(quantityInput.value) || 1;
+                if (currentQuantity > 1) {
+                    quantityInput.value = currentQuantity - 1;
+                }
+            });
+        });
+
+        // Add to cart functionality
+        cartButtons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                const product = products[index];
+                const quantityInput = quantityInputs[index];
+                const quantity = parseInt(quantityInput.value) || 1;
+
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const existingProductIndex = cart.findIndex(item => item.name === product.name);
+
+                if (existingProductIndex !== -1) {
+                    cart[existingProductIndex].quantity += quantity;
+                } else {
+                    cart.push({
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: quantity,
+                    });
+                }
+
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(`${product.name} was added to the cart with quantity ${quantity}`);
+            });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const productContainer = document.querySelector(".product-grid");
+        const sortByName = document.getElementById("sortByName");
+        const sortByPrice = document.getElementById("sortByPrice");
+        const categoryFilter = document.getElementById("category");
+
+        const products = Array.from(document.querySelectorAll(".card")).map(card => {
+            return {
+                element: card,
+                name: card.querySelector(".text-title").textContent.trim(),
+                price: parseFloat(card.querySelector(".card-footer .text-title").textContent.replace(/[$,]/g, "")),
+                image: card.querySelector(".card-img img").src,
+            };
+        });
+
+        // Render products based on sorting
+        function renderProducts(sortedProducts) {
+            productContainer.innerHTML = "";
+            sortedProducts.forEach(product => productContainer.appendChild(product.element));
+        }
+
+        // Handle category filter change
+        categoryFilter.addEventListener("change", function () {
+            const selectedCategory = this.value;
+            if (selectedCategory === "bags") {
+                window.location.href = "Category.html";
+            } else if (selectedCategory === "jewelries") {
+                window.location.href = "jewelery.html";
+            } else if (selectedCategory === "decor") {
+                window.location.href = "decor.html";
+            }
+        });
+
+        // Handle sorting by name
+        sortByName.addEventListener("change", function () {
+            if (this.value === "a-z") {
+                const sorted = [...products].sort((a, b) => a.name.localeCompare(b.name));
+                renderProducts(sorted);
+            } else if (this.value === "z-a") {
+                const sorted = [...products].sort((a, b) => b.name.localeCompare(a.name));
+                renderProducts(sorted);
+            }
+        });
+
+        // Handle sorting by price
+        sortByPrice.addEventListener("change", function () {
+            if (this.value === "low-high") {
+                const sorted = [...products].sort((a, b) => a.price - b.price);
+                renderProducts(sorted);
+            } else if (this.value === "high-low") {
+                const sorted = [...products].sort((a, b) => b.price - a.price);
+                renderProducts(sorted);
+            }
+        });
+    });
+        document.addEventListener("DOMContentLoaded", function () {
+            const productContainer = document.querySelector(".product-grid");
+            const sortByName = document.getElementById("sortByName");
+            const sortByPrice = document.getElementById("sortByPrice");
+            const cartButtons = document.querySelectorAll(".cart-icon img");
+
+            const products = Array.from(document.querySelectorAll(".card")).map(card => {
+                return {
+                    element: card,
+                    name: card.querySelector(".text-title").textContent.trim(),
+                    price: parseFloat(card.querySelector(".card-footer .text-title").textContent.replace(/[$,]/g, "")),
+                    image: card.querySelector(".card-img img").src
+                };
+            });
+
+            function renderProducts(sortedProducts) {
+                productContainer.innerHTML = "";
+                sortedProducts.forEach(product => productContainer.appendChild(product.element));
+            }
+
+            sortByName.addEventListener("change", function () {
+                if (this.value === "a-z") {
+                    const sorted = [...products].sort((a, b) => a.name.localeCompare(b.name));
+                    renderProducts(sorted);
+                } else if (this.value === "z-a") {
+                    const sorted = [...products].sort((a, b) => b.name.localeCompare(a.name));
+                    renderProducts(sorted);
+                }
+            });
+
+            sortByPrice.addEventListener("change", function () {
+                if (this.value === "low-high") {
+                    const sorted = [...products].sort((a, b) => a.price - b.price);
+                    renderProducts(sorted);
+                } else if (this.value === "high-low") {
+                    const sorted = [...products].sort((a, b) => b.price - a.price);
+                    renderProducts(sorted);
+                }
+            });
+
+            cartButtons.forEach((button, index) => {
+                button.addEventListener("click", () => {
+                    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                    const product = products[index];
+                    cart.push({
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    alert(`${product.name} was added to the cart successfully!`);
+                });
+            });
+        });
+    </script>
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / <a href="Category.html">Categories</a> 
+        </nav>
+    </div>  
+
+    <main class="alter-main"> <!-- Corrected class attribute -->
+        <aside class="sidebar">
+            <h2>Fashion</h2>
+            <form>
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">Select Category</option>
+                    <option value="bags">Bags</option>
+                    <option value="jewelries">Jewelries</option>
+                    <option value="decor">Decor</option>
+                </select>
+
+                <label for="price">Price</label>
+                <select id="price" name="price">
+                    <option value="">Select Price Range</option>
+                    <option value="low-high">Lowest to Highest</option>
+                    <option value="high-low">Highest to Lowest</option>
+                </select>
+
+                <label for="color">Color</label>
+                <select id="color" name="color">
+                    <option value="">Select Color</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                </select>
+
+                <label for="designer">Designer</label>
+                <select id="designer" name="designer">
+                    <option value="">Select Designer</option>
+                    <option value="kade wren">kade wren</option>
+                    <option value="joe lion">joe lion</option>
+                    <option value="lora smith">lora smith</option>
+                </select>
+
+                <button type="submit">Apply Filters</button>
+            </form>
+        </aside>
+        <!-- Product Listing -->
+        <section class="product"> 
+            <h2>Jewelry</h2>
+            <div class="sorting">
+                <div class="sort-options">
+                    <label for="sortByName">Sort by name:</label>
+                    <select id="sortByName">
+                        <optgroup label="Name">
+                            <option value="a-z">A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </optgroup>
+                    </select>
+
+                    <label for="sortByPrice">Sort by price:</label>
+                    <select id="sortByPrice">
+                        <optgroup label="Price">
+                            <option value="low-high">Lowest price</option>
+                            <option value="high-low">Highest price</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid"> 
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/ring.webp" alt="ring"> 
+                    </div>
+                    <div>
+                        <p class="text-title">gold ring</p>
+                        <p class="text-body">gold ring with small diamond.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$349,234</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/ring2.webp" alt="ring"> 
+                    </div>
+                    <div>
+                        <p class="text-title">purple ring</p>
+                        <p class="text-body">Elegant tourmaline gemstone.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$199,400</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/bracelet.webp" alt="bracelet"> 
+                    </div>
+                    <div>
+                        <p class="text-title">gemstones bracelet</p>
+                        <p class="text-body">babyblue gemtones bracelet with gold hardware.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$499,400</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/necklace.webp" alt="necklace"> 
+                    </div>
+                    <div>
+                        <p class="text-title">seashell necklace</p>
+                        <p class="text-body">seashell beautiful gold hardware necklace.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$19,400</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/necklace2.webp" alt="necklace"> 
+                    </div>
+                    <div>
+                        <p class="text-title">gold necklace</p>
+                        <p class="text-body">gold charm necklace.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$500,343</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="Images/earings2.webp" alt="earings"> 
+                    </div>
+                    <div>
+                        <p class="text-title">green earings</p>
+                        <p class="text-body">Vintage green gemstone earings with gold hardware.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-title">$750,343</span>
+                        <div class="cart-icon card-button">
+                            <img src="Images/Cart-category.png" alt="cart-button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>  
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+        </script>
+</body>
+</html>

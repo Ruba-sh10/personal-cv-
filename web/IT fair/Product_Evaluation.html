@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Evaluation</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="VINTARA.png" type="image/png">
+    <style>
+        .product-evaluation {
+            text-align: center; /* Center align the content */
+        }
+        .product-label-evaluation {
+            display: block; /* Ensure it takes up the full width */
+            margin-top: 5px; /* Add some space above the label */
+        }
+        
+    </style>
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    // Apply the saved theme if available
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+    }
+
+    // Handle form submission
+    const form = document.querySelector(".container2-evaluation");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Get selected order, product, and rating
+        const selectedOrder = document.getElementById("order").value;
+        const selectedProduct = document.querySelector("input[name='product']:checked");
+        const selectedRating = document.getElementById("rating").value;
+
+        // Validation
+        if (!selectedOrder) {
+            alert("Please select an order.");
+            return;
+        }
+
+        if (!selectedProduct) {
+            alert("Please select a product.");
+            return;
+        }
+
+        if (!selectedRating) {
+            alert("Please select a rating.");
+            return;
+        }
+
+        // Extract product details
+        const productNumber = selectedProduct.value.split(" ")[1]; // Extracts the number from "Product X"
+
+        // Display alert message
+        alert(`Thank you for your feedback!\nYour rating for product#${productNumber} is ${selectedRating}`);
+
+        // Clear form fields
+        document.getElementById("order").value = "";
+        document.getElementById("rating").value = "";
+        document.getElementById("review").value = "";
+
+        // Redirect to the Home page
+        window.location.href = "index.html";
+    });
+});
+
+function updateProducts() {
+    const order = document.getElementById('order').value;
+    const productsContainer = document.getElementById('products');
+    productsContainer.innerHTML = ''; // Clear current products
+
+    if (order === 'order1') {
+        productsContainer.innerHTML = `
+            <div class="product-evaluation">
+                <input type="radio" id="product1" name="product" value="Product 1" style="display: none;" checked>
+                <label for="product1" style="cursor: pointer;">
+                    <img src="Images/carpet.png" alt="Product 1">
+                    <span class="product-label-evaluation">Persian Rug</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product2" name="product" value="Product 2" style="display: none;">
+                <label for="product2" style="cursor: pointer;">
+                    <img src="Images/vase.png" alt="Product 2">
+                    <span class="product-label-evaluation">Ceramic Vase</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product3" name="product" value="Product 3" style="display: none;">
+                <label for="product3" style="cursor: pointer;">
+                    <img src="Images/painting.png" alt="Product 3">
+                    <span class="product-label-evaluation">Abstract Wall Art</span>
+                </label>
+            </div>
+        `;
+    } else if (order === 'order2') {
+        productsContainer.innerHTML = `
+            <div class="product-evaluation">
+                <input type="radio" id="product4" name="product" value="Product 4" style="display: none;" checked>
+                <label for="product4" style="cursor: pointer;">
+                    <img src="Images/bag2.jpg" alt="Product 4">
+                    <span class="product-label-evaluation">Tote bag</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product5" name="product" value="Product 5" style="display: none;">
+                <label for="product5" style="cursor: pointer;">
+                    <img src="Images/bag3.jpg" alt="Product 5">
+                    <span class="product-label-evaluation">Brown Totebag</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product6" name="product" value="Product 6" style="display: none;">
+                <label for="product6" style="cursor: pointer;">
+                    <img src="Images/bag1.jpg" alt="Product 6">
+                    <span class="product-label-evaluation">Green totbag</span>
+                </label>
+            </div>
+        `;
+    } else if (order === 'order3') {
+        productsContainer.innerHTML = `
+            <div class="product-evaluation">
+                <input type="radio" id="product7" name="product" value="Product 7" style="display: none;" checked>
+                <label for="product7" style="cursor: pointer;">
+                    <img src="Images/vase4.webp" alt="Product 7">
+                    <span class="product-label-evaluation">Blue Bloom</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product8" name="product" value="Product 8" style="display: none;">
+                <label for="product8" style="cursor: pointer;">
+                    <img src="Images/vase1.webp" alt="Product 8">
+                    <span class="product-label-evaluation">Spotted Sky</span>
+                </label>
+            </div>
+            <div class="product-evaluation">
+                <input type="radio" id="product9" name="product" value="Product 9" style="display: none;">
+                <label for="product9" style="cursor: pointer;">
+                    <img src="Images/vase3.webp" alt="Product 9">
+                    <span class="product-label-evaluation">Green Scales</span>
+                </label>
+            </div>
+        `;
+    }
+}
+
+        
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="header-nav">
+                <a href="Category.html"  >Categories</a>
+                <a href="Users_Page.html"  >User's Page</a>
+                <a href="Seller.html"  >Seller's Dashboard</a>
+            </nav>
+            <div class="header-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="header-cart">
+                <a href="Cart_Page.html"><img src="Images/Cart.png" alt="Cart Icon"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcumbs"> 
+        <nav class="breadcrumbs">
+            <a href="index.html">Home</a> / <a href="Users_Page.html">User's Page</a> / <a href="Product_Evaluation.html">Product Evaluation Page</a>
+        </nav>
+    </div> 
+    
+    <form class="container2-evaluation">
+        <h2>Product Evaluation</h2>
+
+        <div class="order-selection-evaluation">
+            <label for="order">Select previous Order:</label>
+            <select id="order" name="order" onchange="updateProducts()">
+                <option value="">Select an order</option>
+                <option value="order1">12347</option>
+                <option value="order2">12346</option>
+                <option value="order3">12345</option>
+            </select>
+        </div>
+
+        <div class="product-selection-evaluation">
+            <h3>Product Selection:</h3>
+            <div class="products-evaluation" id="products">
+                <!-- Default products for order 1 -->
+                <div class="product-evaluation">
+                    <input type="radio" id="product1" name="product" value="Product 1" style="display: none;" checked>
+                    <label for="product1" style="cursor: pointer;">
+                        <img src="Images/carpet.png" alt="Product 1">
+                        <span class="product-label-evaluation">Persian Rug</span>
+                    </label>
+                </div>
+                <div class="product-evaluation">
+                    <input type="radio" id="product2" name="product" value="Product 2" style="display: none;">
+                    <label for="product2" style="cursor: pointer;">
+                        <img src="Images/vase.png" alt="Product 2">
+                        <span class="product-label-evaluation">Ceramic Vase</span>
+                    </label>
+                </div>
+                <div class="product-evaluation">
+                    <input type="radio" id="product3" name="product" value="Product 3" style="display: none;">
+                    <label for="product3" style="cursor: pointer;">
+                        <img src="Images/painting.png" alt="Product 3">
+                        <span class="product-label-evaluation">Abstract Wall Art</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="rating-section-evaluation">
+            <label for="rating">Rate the Product (1-5):</label>
+            <select id="rating" name="rating">
+                <option value="">Select a rating</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="review-section-evaluation">
+            <label for="review">Review:</label>
+            <textarea id="review" name="review" placeholder="Enter your feedback here."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn-evaluation" accesskey="n">Submit</button>
+    </form>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html"  >
+                    <img src="Images/VINTARA.png" alt="Logo">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                <p> Copyright &copy; 2024 Website. All rights reserved.</p>
+            </div>
+            <div class="footer-contact">
+                <a href="#"><img src="Images/Instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="Images/X.png" alt="X"></a>
+                <a href="#"><img src="Images/Tiktok.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+
+        function updateProducts() {
+            const order = document.getElementById('order').value;
+            const productsContainer = document.getElementById('products');
+            productsContainer.innerHTML = ''; // Clear current products
+
+            if (order === 'order1') {
+                productsContainer.innerHTML = `
+                    <div class="product-evaluation">
+                        <input type="radio" id="product1" name="product" value="Product 1" style="display: none;" checked>
+                        <label for="product1" style="cursor: pointer;">
+                            <img src="Images/carpet.png" alt="Product 1">
+                            <span class="product-label-evaluation">Persian Rug</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product2" name="product" value="Product 2" style="display: none;">
+                        <label for="product2" style="cursor: pointer;">
+                            <img src="Images/vase.png" alt="Product 2">
+                            <span class="product-label-evaluation">Ceramic Vase</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product3" name="product" value="Product 3" style="display: none;">
+                        <label for="product3" style="cursor: pointer;">
+                            <img src="Images/painting.png" alt="Product 3">
+                            <span class="product-label-evaluation">Abstract Wall Art</span>
+                        </label>
+                    </div>
+                `;
+            } else if (order === 'order2') {
+                productsContainer.innerHTML = `
+                    <div class="product-evaluation">
+                        <input type="radio" id="product4" name="product" value="Product 4" style="display: none;" checked>
+                        <label for="product4" style="cursor: pointer;">
+                            <img src="Images/bag2.jpg" alt="Product 4">
+                            <span class="product-label-evaluation">Totebag</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product5" name="product" value="Product 5" style="display: none;">
+                        <label for="product5" style="cursor: pointer;">
+                            <img src="Images/bag3.jpg" alt="Product 5">
+                            <span class="product-label-evaluation">Brown totebag</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product6" name="product" value="Product 6" style="display: none;">
+                        <label for="product6" style="cursor: pointer;">
+                            <img src="Images/bag1.jpg" alt="Product 6">
+                            <span class="product-label-evaluation">Green totebag</span>
+                        </label>
+                    </div>
+                `;
+            } else if (order === 'order3') {
+                productsContainer.innerHTML = `
+                    <div class="product-evaluation">
+                        <input type="radio" id="product7" name="product" value="Product 7" style="display: none;" checked>
+                        <label for="product7" style="cursor: pointer;">
+                            <img src="Images/vase4.webp"" alt="Product 7">
+                            <span class="product-label-evaluation">Blue Bloom</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product8" name="product" value="Product 8" style="display: none;">
+                        <label for="product8" style="cursor: pointer;">
+                            <img src="Images/vase1.webp" alt="Product 8">
+                            <span class="product-label-evaluation">Spotted Sky</span>
+                        </label>
+                    </div>
+                    <div class="product-evaluation">
+                        <input type="radio" id="product9" name="product" value="Product 9" style="display: none;">
+                        <label for="product9" style="cursor: pointer;">
+                            <img src="Images/vase3.webp" alt="Product 9">
+                            <span class="product-label-evaluation">Green Scales</span>
+                        </label>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
